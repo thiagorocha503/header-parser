@@ -10,9 +10,12 @@ app.use(cors({ optionsSuccessStatus: 200 })); // some legacy browsers choke on 2
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
 
+app.set('view engine', 'ejs');
+app.set('views', './views');
+
 // http://expressjs.com/en/starter/basic-routing.html
-app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/views/index.html');
+app.get('/', function (_, res) {
+  res.render('index');
 });
 
 // your first API endpoint...
@@ -26,6 +29,6 @@ app.get('/api/whoami', function (req, res) {
 
 // listen for requests :)
 const port = process.env.PORT || 3000
-var listener = app.listen(port, function () {
+app.listen(port, function () {
   console.log('Your app is listening on port ' + port);
 });
